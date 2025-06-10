@@ -449,8 +449,8 @@ const TodoistIndicator = GObject.registerClass(
 
     _getTextForTaskCount(count) {
       switch (count) {
-        case 0: return _("no due tasks");
-        default: return ngettext("one due task", "%d due tasks", count).format(count);
+        case 0: return _("🎉");
+        default: return ngettext("1 💪🏻", "%d 🫵", count).format(count);
       }
     }
 
