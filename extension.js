@@ -488,7 +488,10 @@ const TodoistIndicator = GObject.registerClass(
       let pastDueItems = this._tasks.filter(this._isDueDateInPast.bind(this));
       let todayItems = this._tasks.filter(this._isDueDateToday.bind(this));
 
-      this.buttonText.set_text(this._getTextForTaskCount(pastDueItems.length));
+      // Calculer le total des tâches overdue + today
+      let totalDueTasks = pastDueItems.length + todayItems.length;
+  
+      this.buttonText.set_text(this._getTextForTaskCount(totalDueTasks));
       this._renderTodoLists(pastDueItems, todayItems);
     }
 
