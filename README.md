@@ -20,7 +20,7 @@ A simple, unofficial Todoist extension for GNOME Shell that displays the count o
 - **Language**: JavaScript (96.7%), Shell (2%), CSS (1.3%)
 - **License**: MIT License
 - **GNOME Shell Version**: 46
-- **Extension UUID**: `todoist@tarelda.github.com`
+- **Extension UUID**: `todoist-indicator@may8326.github.com`
 
 ## Compatibility
 
@@ -96,7 +96,7 @@ The extension offers the following configuration options:
 
 ### File Structure
 ```
-todoist@tarelda.github.com/
+todoist-indicator@may8326.github.com/
 ├── extension.js          # Main extension logic
 ├── metadata.json         # Extension metadata
 ├── prefs.js             # Preferences dialog
@@ -112,7 +112,7 @@ See the `scripts/translation_example.sh` for instructions on adding new translat
 ## Troubleshooting
 
 ### Extension Not Appearing
-- Ensure the directory is named exactly `todoist@tarelda.github.com`
+- Ensure the directory is named exactly `todoist-indicator@may8326.github.com`
 - Restart GNOME Shell after installation
 - Check that you're using GNOME Shell 46
 
@@ -124,7 +124,7 @@ See the `scripts/translation_example.sh` for instructions on adding new translat
 ### Permission Issues
 - Ensure the extension directory has proper permissions:
   ```bash
-  chmod -R 755 ~/.local/share/gnome-shell/extensions/todoist@tarelda.github.com
+  chmod -R 755 ~/.local/share/gnome-shell/extensions/todoist-indicator@may8326.github.com
   ```
 
 ## Roadmap
