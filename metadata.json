@@ -1,7 +1,7 @@
 {
-  "name": "Todoist",
-  "description": "Lists tasks from Todoist task manager",
+  "name": "Todoist Indicator",
+  "description": "A simple, unofficial Todoist extension for Gnome shell which shows the count of open tasks in the top right corner of your screen. Also lets you view your past due/today tasks views in dropdown.",
   "shell-version": ["46"],
-  "uuid": "todoist@tarelda.github.com",
-  "settings-schema": "org.gnome.shell.extensions.todoist"
+  "uuid": "todoist-indicator@may8326.github.com",
+  "settings-schema": "org.gnome.shell.extensions.todoist-indicator"
 }
