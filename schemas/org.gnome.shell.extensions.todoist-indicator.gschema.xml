@@ -1,5 +1,5 @@
-<schemalist gettext-domain="todoist">
-	<schema id="org.gnome.shell.extensions.todoist" path="/org/gnome/shell/extensions/todoist/">
+<schemalist gettext-domain="todoist-indicator">
+	<schema id="org.gnome.shell.extensions.todoist-indicator" path="/org/gnome/shell/extensions/todoist-indicator/">
 		<key name="api-token" type="s">
 			<default>'token'</default>
 			<summary>Todoist API token</summary>
