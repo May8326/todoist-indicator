@@ -308,6 +308,24 @@ const TodoistIndicator = GObject.registerClass(
       });
       this.menu.addMenuItem(openTodoistWebButton);
 
+      // Nouveau bouton pour ouvrir l'application de bureau Todoist
+      let openTodoistAppButton = new PopupMenu.PopupMenuItem(_("Open Todoist app"));
+      openTodoistAppButton.connect("activate", () => {
+        // Essaie d'ouvrir l'application Todoist de bureau
+        try {
+          Util.spawn(['todoist']);
+        } catch (e) {
+          // Si la commande 'todoist' n'existe pas, essaie avec 'com.todoist.Todoist' (Flatpak)
+          try {
+            Util.spawn(['flatpak', 'run', 'com.todoist.Todoist']);
+          } catch (e2) {
+            // Si aucune des deux ne fonctionne, affiche un message d'erreur dans la console
+            console.log("Todoist desktop app not found. Please install it first.");
+          }
+        }
+      });
+      this.menu.addMenuItem(openTodoistAppButton);
+
       this._refresh();
       this._refreshTimer = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, this._settings.get_int("refresh-interval"), () => {
         this._refresh();
