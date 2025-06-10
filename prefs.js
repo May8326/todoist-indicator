@@ -1,14 +1,9 @@
-const GLib = imports.gi.GLib;
-const GObject = imports.gi.GObject;
-const Gio = imports.gi.Gio;
-const Gtk = imports.gi.Gtk;
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import Gio from 'gi://Gio';
+import Gtk from 'gi://Gtk';
 
-const Gettext = imports.gettext;
-const _ = Gettext.gettext;
-
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-const Convenience = Me.imports.convenience;
+import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 const TodoistPrefsWidget = GObject.registerClass({
     Name: 'Todoist.Prefs.Widget',
@@ -17,9 +12,12 @@ const TodoistPrefsWidget = GObject.registerClass({
   class TodoistPrefsWidget extends Gtk.Grid {
     _init(params) {
       super._init(params);
-      this._settings = Convenience.getSettings();
+      this._settings = this._getSettings();
 
-      this.margin = 12;
+      this.margin_top = 12;
+      this.margin_bottom = 12;
+      this.margin_start = 12;
+      this.margin_end = 12;
       this.row_spacing = this.column_spacing = 6;
       this.set_orientation(Gtk.Orientation.VERTICAL);
 
@@ -72,17 +70,43 @@ const TodoistPrefsWidget = GObject.registerClass({
       this.attach(refreshIntervalInput, 1, 2, 1, 1);
       this._settings.bind("refresh-interval", refreshIntervalInput, "value", Gio.SettingsBindFlags.DEFAULT);
     }
+
+    _getSettings() {
+      const GioSSS = Gio.SettingsSchemaSource;
+      const schemaDir = GLib.build_filenamev([
+        import.meta.url.replace('file://', '').replace('/prefs.js', ''),
+        'schemas'
+      ]);
+      
+      let schemaSource;
+      if (GLib.file_test(schemaDir, GLib.FileTest.EXISTS)) {
+        schemaSource = GioSSS.new_from_directory(
+          schemaDir,
+          GioSSS.get_default(),
+          false
+        );
+      } else {
+        schemaSource = GioSSS.get_default();
+      }
+
+      const schemaObj = schemaSource.lookup('org.gnome.shell.extensions.todoist', true);
+      if (!schemaObj) {
+        throw new Error('Schema org.gnome.shell.extensions.todoist could not be found');
+      }
+
+      return new Gio.Settings({settings_schema: schemaObj});
+    }
   }
 );
 
-function init() {
-  Gettext.textdomain("todoist@tarelda.github.com");
-  Gettext.bindtextdomain("todoist@tarelda.github.com", Me.dir.get_child("locale").get_path());
+export default class TodoistPreferences extends ExtensionPreferences {
+  fillPreferencesWindow(window) {
+    const widget = new TodoistPrefsWidget();
+    const page = new Adw.PreferencesPage();
+    const group = new Adw.PreferencesGroup();
+    
+    group.add(widget);
+    page.add(group);
+    window.add(page);
+  }
 }
-
-function buildPrefsWidget() {
-    let widget = new TodoistPrefsWidget();
-    if(typeof widget.show_all != "undefined") widget.show_all();
-    return widget;
-}
-
