@@ -1,3 +1,6 @@
+> [!NOTE]  
+> This is a fork from [Tarelda's extension](https://github.com/tarelda/todoist-indicator.git).
+
 # Unofficial Todoist Gnome Shell extension
 
 This is an unofficial Gnome Shell extension which has been forked from original [project](https://github.com/ubuntudroid/todoist-gnome-shell-extension) and heavily modified.
